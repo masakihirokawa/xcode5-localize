@@ -32,7 +32,7 @@ CGFloat const LOCALIZED_LABEL_HEIGHT = 64;
 - (void)setLocalizedImage
 {
     UIImageView *localizedImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-    localizedImage.image = [self getLocalizedImageWithName:@"title" ext:@"png"];
+    localizedImage.image = [UIImage imageNamed:NSLocalizedString(@"sampleImageFile", nil)];
     [self.view addSubview:localizedImage];
 }
 
@@ -48,18 +48,6 @@ CGFloat const LOCALIZED_LABEL_HEIGHT = 64;
     [self.view addSubview:localizedLabel];
 }
 
-// ローカライズ画像取得
-- (UIImage *)getLocalizedImageWithName:(NSString *)name ext:(NSString *)ext
-{
-    UIImage *localizedImage;
-    if ([self isJapaneseLanguage]) {
-        localizedImage = [self getUIImageFromResources:name ext:ext];
-    } else {
-        localizedImage = [self getUIImageFromResources:[NSString stringWithFormat:@"%@%@", name, @"_en"] ext:ext];
-    }
-    return localizedImage;
-}
-
 // 言語設定取得
 - (BOOL)isJapaneseLanguage
 {
@@ -71,14 +59,6 @@ CGFloat const LOCALIZED_LABEL_HEIGHT = 64;
         isJapanese = [currentLanguage compare:@"ja"] == NSOrderedSame;
     });
     return isJapanese;
-}
-
-// 画像ファイル取得
-- (UIImage *)getUIImageFromResources:(NSString*)fileName ext:(NSString*)ext
-{
-    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:ext];
-    UIImage *img = [[UIImage alloc] initWithContentsOfFile:path];
-    return (img);
 }
 
 @end
